@@ -1,0 +1,29 @@
+@'
+# Node / JS
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Client/Server node_modules
+client/node_modules/
+server/node_modules/
+
+# Build outputs
+dist/
+build/
+.vite/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.vscode/
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+'@ > .gitignore
