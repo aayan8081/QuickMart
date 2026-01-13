@@ -38,7 +38,7 @@ function App() {
       } catch (err) {
         console.error(err)
         setError(
-          'Unable to load data. Ensure the API server is running on http://localhost:5000.'
+          'Unable to load data. Please ensure the API server is running and accessible.'
         )
       } finally {
         setLoading(false)
