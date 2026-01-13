@@ -10,7 +10,7 @@ cd server
 npm run dev
 # Server runs on http://localhost:5000
 
-# Terminal 2: Start Frontend  
+# Terminal 2: Start Frontend
 cd client
 npm run dev
 # Frontend runs on http://localhost:5173
@@ -59,12 +59,12 @@ npm run dev
 3. Click **Add Environment Variable**
 4. Add these variables:
 
-| Key | Value |
-|-----|-------|
-| MONGO_URI | `mongodb+srv://username:password@cluster.mongodb.net/greencart?retryWrites=true&w=majority` |
-| PORT | `5000` |
-| API_PREFIX | `/api` |
-| NODE_ENV | `production` |
+| Key        | Value                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------- |
+| MONGO_URI  | `mongodb+srv://username:password@cluster.mongodb.net/greencart?retryWrites=true&w=majority` |
+| PORT       | `5000`                                                                                      |
+| API_PREFIX | `/api`                                                                                      |
+| NODE_ENV   | `production`                                                                                |
 
 5. Click **Save Changes** → Service auto-redeploys ✓
 
@@ -86,8 +86,8 @@ npm run dev
 2. Scroll to **Environment**
 3. Add variable:
 
-| Key | Value |
-|-----|-------|
+| Key          | Value                                  |
+| ------------ | -------------------------------------- |
 | VITE_API_URL | `https://grocery-api.onrender.com/api` |
 
 (Replace `grocery-api.onrender.com` with your actual backend URL from Step 3b)
@@ -112,38 +112,45 @@ npm run dev
 ## Common Issues
 
 ### ❌ "Cannot GET /"
+
 **Solution:** Frontend didn't deploy correctly. Check Render logs.
 
 ### ❌ CORS Error in browser console
+
 **Solution:** Your `VITE_API_URL` doesn't match backend URL. Double-check in Render.
 
 ### ❌ "Cannot connect to database"
-**Solution:** 
+
+**Solution:**
+
 - Check MongoDB Atlas credentials
 - Ensure IP is whitelisted in MongoDB Atlas
 - Verify MONGO_URI is correct
 
 ### ❌ Services keep spinning down
+
 **Solution:** Free tier spins down after 15 minutes. Normal behavior. Upgrade to paid for always-on.
 
 ---
 
 ## Files You'll Need to Reference
 
-| Need Help With... | Read This |
-|------------------|-----------|
-| Setting up locally | [ENV_SETUP.md](ENV_SETUP.md) |
-| Render deployment details | [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md) |
-| Troubleshooting | [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) |
-| Understanding how it works | [TECHNICAL_REFERENCE.md](TECHNICAL_REFERENCE.md) |
-| Quick variable lookup | [ENV_QUICK_REFERENCE.md](ENV_QUICK_REFERENCE.md) |
+| Need Help With...          | Read This                                          |
+| -------------------------- | -------------------------------------------------- |
+| Setting up locally         | [ENV_SETUP.md](ENV_SETUP.md)                       |
+| Render deployment details  | [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md)       |
+| Troubleshooting            | [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) |
+| Understanding how it works | [TECHNICAL_REFERENCE.md](TECHNICAL_REFERENCE.md)   |
+| Quick variable lookup      | [ENV_QUICK_REFERENCE.md](ENV_QUICK_REFERENCE.md)   |
 
 ---
 
 ## Environment Variables Recap
 
 ### What They Are
+
 Configuration values stored outside your code so you can:
+
 - Keep secrets safe
 - Use different settings for dev vs production
 - Change values without touching code
@@ -151,6 +158,7 @@ Configuration values stored outside your code so you can:
 ### Your Variables
 
 **Server** (in Render dashboard):
+
 ```
 MONGO_URI = your MongoDB connection string
 PORT = 5000
@@ -159,11 +167,13 @@ NODE_ENV = production
 ```
 
 **Client** (in Render dashboard):
+
 ```
 VITE_API_URL = https://your-backend-url.onrender.com/api
 ```
 
 ### Important Rules
+
 - ✅ Commit `.env.example` files
 - ❌ DO NOT commit `.env` files (they're in .gitignore)
 - ✅ Use Render dashboard to set production variables
@@ -189,6 +199,7 @@ API Endpoint: https://grocery-api.onrender.com/api
 ## Success Indicators ✓
 
 Your deployment is successful when:
+
 - [ ] Frontend URL loads in browser
 - [ ] No CORS errors in console (F12)
 - [ ] Products load from API
@@ -210,12 +221,12 @@ Your deployment is successful when:
 
 ## Estimated Timeline
 
-| Step | Time | Status |
-|------|------|--------|
-| 1. Local testing | 5 min | ✓ Do this first |
-| 2. MongoDB Atlas | 10 min | ⏳ Do this second |
-| 3. Render deployment | 20 min | ⏳ Do this third |
-| **Total** | **~35 min** | 🚀 Live in 35 minutes! |
+| Step                 | Time        | Status                 |
+| -------------------- | ----------- | ---------------------- |
+| 1. Local testing     | 5 min       | ✓ Do this first        |
+| 2. MongoDB Atlas     | 10 min      | ⏳ Do this second      |
+| 3. Render deployment | 20 min      | ⏳ Do this third       |
+| **Total**            | **~35 min** | 🚀 Live in 35 minutes! |
 
 ---
 

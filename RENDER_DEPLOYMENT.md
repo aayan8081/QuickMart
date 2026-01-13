@@ -1,6 +1,7 @@
 # Render Deployment Guide
 
 ## Prerequisites
+
 - GitHub account with your repository pushed
 - Render account (free tier available)
 - MongoDB Atlas account for cloud database
@@ -26,6 +27,7 @@
 2. Click **New +** → **Web Service**
 3. Select your GitHub repository
 4. Configure as follows:
+
    - **Name**: grocery-api (or your preferred name)
    - **Root Directory**: `server`
    - **Runtime**: Node
@@ -44,12 +46,12 @@
 3. Scroll to **Environment**
 4. Add the following environment variables:
 
-| Key | Value |
-|-----|-------|
-| MONGO_URI | `mongodb+srv://username:password@cluster.mongodb.net/greencart?retryWrites=true&w=majority` |
-| PORT | 5000 |
-| API_PREFIX | /api |
-| NODE_ENV | production |
+| Key        | Value                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------- |
+| MONGO_URI  | `mongodb+srv://username:password@cluster.mongodb.net/greencart?retryWrites=true&w=majority` |
+| PORT       | 5000                                                                                        |
+| API_PREFIX | /api                                                                                        |
+| NODE_ENV   | production                                                                                  |
 
 5. Click **Save Changes**
 6. Backend will auto-redeploy with new variables
@@ -59,6 +61,7 @@
 1. Click **New +** → **Web Service** again
 2. Select the same GitHub repository
 3. Configure as follows:
+
    - **Name**: grocery-client (or your preferred name)
    - **Root Directory**: `client`
    - **Runtime**: Node
@@ -74,8 +77,8 @@
 2. Click **Settings** → **Environment**
 3. Add environment variable:
 
-| Key | Value |
-|-----|-------|
+| Key          | Value                                  |
+| ------------ | -------------------------------------- |
 | VITE_API_URL | `https://grocery-api.onrender.com/api` |
 
 (Replace `grocery-api.onrender.com` with your actual backend URL)
@@ -90,12 +93,12 @@ If you see CORS errors, update `server/src/index.js`:
 ```javascript
 const corsOptions = {
   origin: [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'https://your-frontend-url.onrender.com'
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://your-frontend-url.onrender.com",
   ],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
@@ -111,21 +114,25 @@ app.use(cors(corsOptions));
 ## Common Issues
 
 ### Issue: "Cannot GET /" on frontend
+
 - **Solution**: Ensure `npm run preview` is the correct start command
 - May need to configure a static site instead of web service
 
 ### Issue: CORS errors
+
 - **Solution**: Update CORS configuration in backend
 - Ensure frontend URL is added to allowed origins
 
 ### Issue: Database connection fails
-- **Solution**: 
+
+- **Solution**:
   - Verify MongoDB Atlas credentials
   - Check if Render IP is whitelisted in MongoDB Atlas
   - Ensure MONGO_URI is correctly formatted
 
 ### Issue: Environment variables not loading
-- **Solution**: 
+
+- **Solution**:
   - Redeploy service after adding variables
   - Restart the service from Render dashboard
   - Check variable names match exactly (case-sensitive)
@@ -140,6 +147,7 @@ app.use(cors(corsOptions));
 ## Redeploying
 
 To redeploy after making changes:
+
 1. Push changes to GitHub
 2. Render automatically detects changes
 3. Service will rebuild and redeploy

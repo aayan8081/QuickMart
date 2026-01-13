@@ -7,14 +7,17 @@ Your Grocery Project has been configured for secure deployment on Render with pr
 ## ✅ Files Created
 
 ### Environment Files (Git-ignored for security)
+
 1. **`server/.env`** - Server environment variables for local development
 2. **`client/.env.local`** - Client environment variables for local development
 
 ### Template Files (Safe to commit)
+
 3. **`server/.env.example`** - Template showing required server variables
 4. **`client/.env.example`** - Template showing required client variables
 
 ### Documentation Files
+
 5. **`ENV_SETUP.md`** - Complete guide on environment configuration
 6. **`RENDER_DEPLOYMENT.md`** - Step-by-step Render deployment instructions
 7. **`DEPLOYMENT_CHECKLIST.md`** - Full deployment checklist with troubleshooting
@@ -30,15 +33,18 @@ Your Grocery Project has been configured for secure deployment on Render with pr
 ## ✅ Code Already Using Environment Variables
 
 ### Server (`server/src/`)
+
 - ✅ `config/db.js` - Uses `process.env.MONGO_URI`
 - ✅ `index.js` - Uses `process.env.PORT` and `process.env.API_PREFIX`
 
 ### Client (`client/src/`)
+
 - ✅ `services/api.js` - Uses `import.meta.env.VITE_API_URL`
 
 ## 📋 Environment Variables Setup
 
 ### Server Configuration
+
 ```
 MONGO_URI=mongodb://127.0.0.1:27017/greencart
 PORT=5000
@@ -47,6 +53,7 @@ NODE_ENV=development
 ```
 
 ### Client Configuration
+
 ```
 VITE_API_URL=http://localhost:5000/api
 ```
@@ -54,41 +61,48 @@ VITE_API_URL=http://localhost:5000/api
 ## 🚀 Next Steps to Deploy on Render
 
 ### 1. Prepare MongoDB Atlas (Database)
-   - Create account at https://www.mongodb.com/cloud/atlas
-   - Create cluster and user
-   - Get connection string
+
+- Create account at https://www.mongodb.com/cloud/atlas
+- Create cluster and user
+- Get connection string
 
 ### 2. Push to GitHub
-   ```bash
-   git add .
-   git commit -m "Add environment configuration for Render deployment"
-   git push
-   ```
-   > **Important**: `.env` files are NOT committed (they're in .gitignore)
+
+```bash
+git add .
+git commit -m "Add environment configuration for Render deployment"
+git push
+```
+
+> **Important**: `.env` files are NOT committed (they're in .gitignore)
 
 ### 3. Deploy on Render
-   
-   **Backend:**
-   - Go to https://render.com
-   - Create Web Service → Connect GitHub
-   - Set root directory: `server`
-   - Build: `npm install`
-   - Start: `npm start`
-   - Add environment variables in Render dashboard
 
-   **Frontend:**
-   - Create Web Service → Connect GitHub
-   - Set root directory: `client`
-   - Build: `npm install && npm run build`
-   - Start: `npm run preview`
-   - Add environment variables in Render dashboard
+**Backend:**
+
+- Go to https://render.com
+- Create Web Service → Connect GitHub
+- Set root directory: `server`
+- Build: `npm install`
+- Start: `npm start`
+- Add environment variables in Render dashboard
+
+**Frontend:**
+
+- Create Web Service → Connect GitHub
+- Set root directory: `client`
+- Build: `npm install && npm run build`
+- Start: `npm run preview`
+- Add environment variables in Render dashboard
 
 ### 4. Update Frontend API URL
-   After deploying backend, update client's `VITE_API_URL` to point to your backend's Render URL
+
+After deploying backend, update client's `VITE_API_URL` to point to your backend's Render URL
 
 ## 🔒 Security Features
 
 ✅ **Implemented:**
+
 - Environment variables for all sensitive data
 - `.env` files excluded from Git
 - No hardcoded credentials
@@ -97,6 +111,7 @@ VITE_API_URL=http://localhost:5000/api
 - Production-ready configuration
 
 ✅ **Best Practices:**
+
 - Sensitive information never in code
 - Easy credential rotation
 - Each environment can have different values
@@ -141,21 +156,24 @@ Visit http://localhost:5173 in your browser
 ## ⚠️ Important Reminders
 
 1. **Commit `.env.example` but NOT `.env`**
+
    ```bash
    # These get committed:
    server/.env.example
    client/.env.example
-   
+
    # These do NOT get committed:
    server/.env
    client/.env.local
    ```
 
 2. **Different values for production**
+
    - Local: `http://localhost:5000/api`
    - Production: `https://your-render-backend.onrender.com/api`
 
 3. **MongoDB credentials**
+
    - Use MongoDB Atlas for production
    - Different user for development vs production
    - Strong passwords with special characters

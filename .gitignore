@@ -1,0 +1,21 @@
+# Configuration & Template Files
+*.example
+SETUP_SUMMARY.txt
+package-lock.json
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment
+.env
+.env.local
+
+# Build
+dist/
+build/
+
+# OS
+.DS_Store
+.vscode/

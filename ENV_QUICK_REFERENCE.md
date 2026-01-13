@@ -8,17 +8,17 @@ Environment variables are configuration values stored outside your code. Render 
 
 ### Server (`server/.env` for local, Render dashboard for production)
 
-| Variable | Purpose | Local Value | Production Value |
-|----------|---------|-------------|------------------|
-| `MONGO_URI` | MongoDB connection string | `mongodb://127.0.0.1:27017/greencart` | `mongodb+srv://user:pass@cluster.mongodb.net/greencart` |
-| `PORT` | Server port number | `5000` | `5000` |
-| `API_PREFIX` | API route prefix | `/api` | `/api` |
-| `NODE_ENV` | Environment mode | `development` | `production` |
+| Variable     | Purpose                   | Local Value                           | Production Value                                        |
+| ------------ | ------------------------- | ------------------------------------- | ------------------------------------------------------- |
+| `MONGO_URI`  | MongoDB connection string | `mongodb://127.0.0.1:27017/greencart` | `mongodb+srv://user:pass@cluster.mongodb.net/greencart` |
+| `PORT`       | Server port number        | `5000`                                | `5000`                                                  |
+| `API_PREFIX` | API route prefix          | `/api`                                | `/api`                                                  |
+| `NODE_ENV`   | Environment mode          | `development`                         | `production`                                            |
 
 ### Client (`client/.env.local` for local, Render dashboard for production)
 
-| Variable | Purpose | Local Value | Production Value |
-|----------|---------|-------------|------------------|
+| Variable       | Purpose              | Local Value                 | Production Value                       |
+| -------------- | -------------------- | --------------------------- | -------------------------------------- |
 | `VITE_API_URL` | Backend API endpoint | `http://localhost:5000/api` | `https://grocery-api.onrender.com/api` |
 
 ## How to Set Variables
@@ -26,6 +26,7 @@ Environment variables are configuration values stored outside your code. Render 
 ### Locally (Development)
 
 **Server:**
+
 ```bash
 cd server
 # Create/edit .env file
@@ -37,6 +38,7 @@ npm run dev
 ```
 
 **Client:**
+
 ```bash
 cd client
 # Create/edit .env.local file
@@ -56,18 +58,20 @@ npm run dev
 ## How the Code Uses These Variables
 
 ### Server (Node.js)
+
 ```javascript
 // Access with process.env
-const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/greencart';
+const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/greencart";
 const port = process.env.PORT || 5000;
-const apiPrefix = process.env.API_PREFIX || '/api';
-const environment = process.env.NODE_ENV || 'development';
+const apiPrefix = process.env.API_PREFIX || "/api";
+const environment = process.env.NODE_ENV || "development";
 ```
 
 ### Client (Vite/React)
+
 ```javascript
 // Access with import.meta.env (Vite prefix: VITE_)
-const apiUrl = import.meta.env.VITE_API_URL || '/api';
+const apiUrl = import.meta.env.VITE_API_URL || "/api";
 ```
 
 ## File Structure
@@ -92,13 +96,15 @@ client/
 ## Common Mistakes to Avoid
 
 ❌ **WRONG:**
+
 ```javascript
 // Hardcoded - NEVER do this!
-const apiUrl = 'http://localhost:5000/api';
-const mongoUri = 'mongodb+srv://user:pass@cluster.mongodb.net/db';
+const apiUrl = "http://localhost:5000/api";
+const mongoUri = "mongodb+srv://user:pass@cluster.mongodb.net/db";
 ```
 
 ✅ **CORRECT:**
+
 ```javascript
 // Uses environment variable
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -106,6 +112,7 @@ const mongoUri = process.env.MONGO_URI;
 ```
 
 ❌ **WRONG:**
+
 ```env
 # Committing .env to Git - NEVER do this!
 git add .env
@@ -113,6 +120,7 @@ git commit -m "Add environment variables"
 ```
 
 ✅ **CORRECT:**
+
 ```bash
 # Only commit .env.example
 git add .env.example
@@ -148,6 +156,7 @@ To add variables in Render:
 ## Testing Your Variables
 
 ### Check Server Variables
+
 ```bash
 # In server directory
 node -e "console.log(process.env.MONGO_URI)"
@@ -155,6 +164,7 @@ node -e "console.log(process.env.PORT)"
 ```
 
 ### Check Client Variables (During Build)
+
 ```bash
 # In client directory
 # Variables are compiled during build
@@ -176,6 +186,7 @@ cat .env.local
 ## Support
 
 For more information:
+
 - See `ENV_SETUP.md` for detailed setup
 - See `RENDER_DEPLOYMENT.md` for deployment steps
 - See `DEPLOYMENT_CHECKLIST.md` for full checklist

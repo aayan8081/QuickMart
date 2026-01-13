@@ -1,11 +1,13 @@
 # Environment Configuration Guide
 
 ## Overview
+
 This project uses environment variables to manage sensitive information and configuration. All environment variables should be defined in `.env` files (which are ignored by Git).
 
 ## Server Configuration
 
 ### Setup
+
 1. Create a `.env` file in the `server/` directory (copy from `.env.example`)
 2. Configure the following variables:
 
@@ -26,7 +28,6 @@ NODE_ENV=development
 - **MONGO_URI**: MongoDB connection string
   - Local: `mongodb://127.0.0.1:27017/greencart`
   - MongoDB Atlas: `mongodb+srv://username:password@cluster.mongodb.net/greencart?retryWrites=true&w=majority`
-  
 - **PORT**: Server port (default: 5000)
 - **API_PREFIX**: API route prefix (default: /api)
 - **NODE_ENV**: Environment (development/production)
@@ -34,6 +35,7 @@ NODE_ENV=development
 ## Client Configuration
 
 ### Setup
+
 1. Create a `.env.local` file in the `client/` directory
 2. Configure the following variable:
 
@@ -54,12 +56,14 @@ VITE_API_URL=http://localhost:5000/api
 1. **Create a Render account** at https://render.com
 
 2. **Create a new Web Service**:
+
    - Connect your GitHub repository
    - Select the `server` directory as root
    - Set Build command: `npm install`
    - Set Start command: `npm start`
 
 3. **Add Environment Variables** in Render dashboard:
+
    - Go to Settings → Environment
    - Add all variables from your `.env` file:
      ```
@@ -77,12 +81,14 @@ VITE_API_URL=http://localhost:5000/api
 ### Frontend Deployment
 
 1. **Create another Render Web Service** for the client:
+
    - Connect your GitHub repository
    - Select the `client` directory as root
    - Set Build command: `npm install && npm run build`
    - Set Start command: `npm run preview`
 
 2. **Add Environment Variables**:
+
    - Add `VITE_API_URL` pointing to your deployed backend:
      ```
      VITE_API_URL=https://your-backend-url.onrender.com/api

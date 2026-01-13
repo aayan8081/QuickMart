@@ -3,6 +3,7 @@
 ## Overview
 
 Environment variables are key-value pairs that store configuration without hardcoding values in your code. This is essential for:
+
 - Keeping credentials secure
 - Using different settings for dev/production
 - Deploying to Render without code changes
@@ -12,11 +13,12 @@ Environment variables are key-value pairs that store configuration without hardc
 ### Server (Node.js with dotenv)
 
 **File: `server/src/index.js`**
-```javascript
-require('dotenv').config();  // Load .env file into process.env
 
-const PORT = process.env.PORT || 5000;  // Access variables
-const apiPrefix = process.env.API_PREFIX || '/api';
+```javascript
+require("dotenv").config(); // Load .env file into process.env
+
+const PORT = process.env.PORT || 5000; // Access variables
+const apiPrefix = process.env.API_PREFIX || "/api";
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
@@ -24,9 +26,11 @@ app.listen(PORT, () => {
 ```
 
 **File: `server/src/config/db.js`**
+
 ```javascript
 const connectDB = async () => {
-  const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/greencart';
+  const mongoUri =
+    process.env.MONGO_URI || "mongodb://127.0.0.1:27017/greencart";
   // Connect to database using URI from environment
 };
 ```
@@ -34,14 +38,16 @@ const connectDB = async () => {
 ### Client (Vite with React)
 
 **File: `client/src/services/api.js`**
+
 ```javascript
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: import.meta.env.VITE_API_URL || "/api",
   timeout: 8000,
-})
+});
 ```
 
 Vite automatically:
+
 1. Reads `.env.local` during build
 2. Injects values into `import.meta.env.*`
 3. Only exposes variables prefixed with `VITE_`
@@ -65,6 +71,7 @@ Vite automatically:
 ```
 
 **Priority Order:**
+
 1. Environment variables already set in OS
 2. Variables from `.env` file
 3. Default values in code (fallback)
@@ -88,11 +95,13 @@ Vite automatically:
 ## Why Different Prefixes?
 
 ### Server: `process.env.VARIABLE_NAME`
+
 - Works at runtime
 - Can read any variable name
 - Loaded from `.env` file via dotenv
 
 ### Client: `import.meta.env.VITE_VARIABLE_NAME`
+
 - Requires `VITE_` prefix
 - Compiled during build (NOT at runtime)
 - Only prefixed variables are exposed (security)
@@ -135,6 +144,7 @@ Render Web Service Settings
 ```
 
 Unlike local development (where .env file is read), Render:
+
 - Injects variables directly into the service's environment
 - Variables are never stored in files on Render
 - Each time service restarts, variables are reloaded
@@ -147,10 +157,11 @@ Your code uses fallback pattern:
 // If environment variable exists, use it
 // Otherwise, use default value
 const port = process.env.PORT || 5000;
-const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/greencart';
+const uri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/greencart";
 ```
 
 This allows:
+
 - Running locally without `.env` file (uses defaults)
 - Production override via environment variables
 - Safe defaults for development
@@ -211,11 +222,13 @@ GOOD (with .gitignore):
 ### Environment Variable Encryption:
 
 **Local (.env file):**
+
 - Stored unencrypted on your machine
 - Only you have access (file permissions)
 - Never committed to Git
 
 **Render (Environment Tab):**
+
 - Encrypted at rest in Render's database
 - Encrypted in transit (HTTPS)
 - Only shown when you're logged in
@@ -224,53 +237,61 @@ GOOD (with .gitignore):
 ## Common Patterns
 
 ### Pattern 1: Required Variables
+
 ```javascript
 const mongoUri = process.env.MONGO_URI;
 if (!mongoUri) {
-  throw new Error('MONGO_URI environment variable is required');
+  throw new Error("MONGO_URI environment variable is required");
 }
 ```
 
 ### Pattern 2: Optional with Defaults
+
 ```javascript
 const port = process.env.PORT || 5000;
-const logLevel = process.env.LOG_LEVEL || 'info';
+const logLevel = process.env.LOG_LEVEL || "info";
 ```
 
 ### Pattern 3: Different Values per Environment
+
 ```javascript
-const isDevelopment = process.env.NODE_ENV === 'development';
-const apiUrl = isDevelopment 
-  ? 'http://localhost:5000/api'
+const isDevelopment = process.env.NODE_ENV === "development";
+const apiUrl = isDevelopment
+  ? "http://localhost:5000/api"
   : process.env.VITE_API_URL;
 ```
 
 ### Pattern 4: Parsing Values
+
 ```javascript
 const port = parseInt(process.env.PORT, 10) || 5000;
-const enableDebug = process.env.DEBUG === 'true';
+const enableDebug = process.env.DEBUG === "true";
 ```
 
 ## Troubleshooting
 
 ### "Variable is undefined"
+
 - Check spelling (case-sensitive)
 - Ensure `.env` file exists
 - Restart server after creating `.env`
 - Verify variable name doesn't have typos
 
 ### Client variable undefined
+
 - Must start with `VITE_`
 - Must be in `.env.local` before build
 - Rebuild after changing `.env.local`
 - Check browser console, not terminal
 
 ### Different values locally vs production
+
 - Local: Check `.env` file contents
 - Production: Check Render dashboard
 - Remember to restart services after changes
 
 ### "MONGO_URI is not a valid MongoDB URI"
+
 - Check MongoDB Atlas connection string
 - Verify username and password are correct
 - Ensure database credentials are URL-encoded
@@ -279,6 +300,7 @@ const enableDebug = process.env.DEBUG === 'true';
 ## Best Practices
 
 1. **Use descriptive names**
+
    ```
    ✓ MONGO_URI
    ✓ API_TIMEOUT
@@ -287,25 +309,28 @@ const enableDebug = process.env.DEBUG === 'true';
    ```
 
 2. **Group related variables**
+
    ```
    # Database
    MONGO_URI=...
-   
+
    # Server
    PORT=5000
    API_PREFIX=/api
    ```
 
 3. **Document in .env.example**
+
    ```
    # Required. MongoDB connection string
    MONGO_URI=mongodb://...
-   
+
    # Optional. Default: 5000
    PORT=5000
    ```
 
 4. **Use different credentials per environment**
+
    ```
    Development: dev@example.com / dev_password
    Production: prod@example.com / prod_password_longer_and_stronger
@@ -320,6 +345,7 @@ const enableDebug = process.env.DEBUG === 'true';
 ## File Syntax
 
 ### `.env` file format
+
 ```
 # Comments start with #
 KEY=value
@@ -335,6 +361,7 @@ QUOTED="hello world"
 ```
 
 ### `.env.example` (same format)
+
 ```
 # Template file - describe what each variable is for
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/greencart?retryWrites=true&w=majority
@@ -343,14 +370,14 @@ PORT=5000
 
 ## Summary
 
-| Aspect | Local Dev | Production (Render) |
-|--------|-----------|-------------------|
-| **Variable Source** | `.env` file | Render dashboard |
-| **Stored Where** | Your computer | Render's servers |
-| **Encrypted** | No | Yes |
-| **How Loaded** | dotenv reads file | Render injects into process |
-| **Visible In Code** | No (good!) | No (good!) |
-| **How Changed** | Edit .env, restart | Edit dashboard, auto-restart |
-| **Example Committed** | Yes (.env.example) | No (only settings) |
+| Aspect                | Local Dev          | Production (Render)          |
+| --------------------- | ------------------ | ---------------------------- |
+| **Variable Source**   | `.env` file        | Render dashboard             |
+| **Stored Where**      | Your computer      | Render's servers             |
+| **Encrypted**         | No                 | Yes                          |
+| **How Loaded**        | dotenv reads file  | Render injects into process  |
+| **Visible In Code**   | No (good!)         | No (good!)                   |
+| **How Changed**       | Edit .env, restart | Edit dashboard, auto-restart |
+| **Example Committed** | Yes (.env.example) | No (only settings)           |
 
 Your project is properly configured! 🚀
