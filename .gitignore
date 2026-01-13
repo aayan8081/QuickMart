@@ -3,6 +3,10 @@
 SETUP_SUMMARY.txt
 package-lock.json
 
+# Documentation files (keep only README.md)
+*.md
+!README.md
+
 # Node
 node_modules/
 npm-debug.log
